@@ -1,0 +1,10 @@
+<div class="mt-0">
+    {% for breadcrumbElement in breadcrumb %}
+        <a href="{% if breadcrumbElement.route %}{{ url(breadcrumbElement.route, app.request.attributes.all['_route_params']) }}{% endif %}" style="text-decoration: none;">
+                {% if loop.last %}<b>{% endif %}
+                        {{ breadcrumbElement.libelle }}
+                {% if loop.last %}</b>{% endif %}
+        </a>
+        {% if not loop.last %} / {% endif %}
+    {% endfor %}
+</div>
