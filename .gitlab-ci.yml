@@ -1,58 +1,45 @@
-include:
-  - template: Code-Quality.gitlab-ci.yml
-  - template: Jobs/SAST.gitlab-ci.yml
-  - template: Jobs/Secret-Detection.gitlab-ci.yml
-  - template: Security/Dependency-Scanning.gitlab-ci.yml
-
-
-.composer:
-  image: php:8.2-cli
-  before_script:
-    - apt-get update
-    - apt-get install zip unzip git -yqq
-    - pecl install xdebug && docker-php-ext-enable xdebug
-    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-    - php composer-setup.php
-    - php -r "unlink('composer-setup.php');"
-    - php composer.phar install
-
-
 stages:
   - build
-  - code quality
-  - container scanning
   - test
-  - deploy
+  - quality
 
 variables:
   CONTAINER_IMAGE: "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
-  REGISTRY_CONTAINER_PATH: /public/citoyens/idelibre
 
 build:
   stage: build
-  script:
-    - echo "Building the application"
-
-
-code_quality:
   tags:
-    - cq-sans-dind
+    - citoyen-shell
+  script:
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag ${CONTAINER_IMAGE} --tag $CI_REGISTRY_IMAGE:latest .
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - docker push ${CONTAINER_IMAGE}
+    - docker push $CI_REGISTRY_IMAGE:latest
 
-
-test:
+unit_test:
   stage: test
-  extends:
-    - .composer
+  tags:
+    - runner-citoyen
+  image : $CONTAINER_IMAGE
   variables:
     XDEBUG_MODE: coverage
+    GIT_STRATEGY: none
+    ENV: test
   script:
-    - php composer.phar test-coverage
+    - cd /app
+    - composer install
+    - vendor/bin/phpunit --coverage-text --colors=never --coverage-clover coverage/coverage.xml --log-junit coverage/logfile.xml
   artifacts:
     paths:
       - coverage
     expire_in: 1h
 
-deploy:
-  stage: deploy
+quality:
+  stage: quality
+  only:
+    - master
+  image : gitlab.libriciel.fr:4567/docker/sonar-scanner:latest
   script:
-    - echo "Deploying the application"
+    - /sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=$SONAR_HOST_URL
