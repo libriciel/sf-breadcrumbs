@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests;
+namespace Libriciel\LsBreadcrums\Tests;
 
 use App\Breadcrumb\BreadcrumbTwig;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -10,7 +10,9 @@ class BreadcrumbTwigTest extends KernelTestCase
 {
     public function testGetFunctions(): void
     {
-        $container = static::getContainer();
+        self::bootKernel();
+        $container = self::$kernel->getContainer();
+//        $container = static::getContainer();
         /** @var BreadcrumbTwig $menuTwig */
         $menuTwig = $container->get(BreadcrumbTwig::class);
         assertCount(1, $menuTwig->getFunctions());
