@@ -50,7 +50,3 @@ test:
       - coverage
     expire_in: 1h
 
-deploy:
-  stage: deploy
-  script:
-    - echo "Deploying the application"
