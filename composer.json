@@ -11,7 +11,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Libriciel\\LsBreadcrums\\": "src/"
+            "Libriciel\\LsBreadcrums\\": "src/",
+            "Libriciel\\LsBreadcrums\\Tests": "tests/"
         }
     },
     "authors": [
@@ -22,5 +23,11 @@
     "minimum-stability": "stable",
     "require-dev": {
         "symfony/test-pack": "^1.1"
+    },
+
+    "scripts": {
+        "test": "phpunit --configuration phpunit.xml phpunit --bootstrap vendor/autoload.php tests/",
+        "test-coverage": "phpunit --configuration phpunit.xml --coverage-text --coverage-clover coverage/coverage.xml --log-junit coverage/logfile.xml",
+        "phpcs": "phpcs -ps --standard=PSR12 --ignore=vendor/ ./"
     }
 }
