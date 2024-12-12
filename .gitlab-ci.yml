@@ -37,21 +37,20 @@ code_quality:
   tags:
     - cq-sans-dind
 
-unit_test:
+test:
   stage: test
-  tags:
-    - runner-citoyen
-  image : $CONTAINER_IMAGE
+  extends:
+    - .composer
   variables:
     XDEBUG_MODE: coverage
-    GIT_STRATEGY: none
-    ENV: test
   script:
-    - cd /app
-    - composer install
-    - vendor/bin/phpunit --coverage-text --colors=never --coverage-clover coverage/coverage.xml --log-junit coverage/logfile.xml
+    - php composer.phar test-coverage
   artifacts:
     paths:
       - coverage
     expire_in: 1h
 
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying the application"
