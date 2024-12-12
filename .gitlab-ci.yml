@@ -1,3 +1,22 @@
+include:
+  - template: Code-Quality.gitlab-ci.yml
+  - template: Jobs/SAST.gitlab-ci.yml
+  - template: Jobs/Secret-Detection.gitlab-ci.yml
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+
+
+.composer:
+  image: php:8.2-cli
+  before_script:
+    - apt-get update
+    - apt-get install zip unzip git -yqq
+    - pecl install xdebug && docker-php-ext-enable xdebug
+    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    - php composer-setup.php
+    - php -r "unlink('composer-setup.php');"
+    - php composer.phar install
+
+
 stages:
   - build
   - test
@@ -10,13 +29,7 @@ build:
   stage: build
   tags:
     - citoyen-shell
-  script:
-    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
-    - docker pull $CI_REGISTRY_IMAGE:latest || true
-    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag ${CONTAINER_IMAGE} --tag $CI_REGISTRY_IMAGE:latest .
-    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
-    - docker push ${CONTAINER_IMAGE}
-    - docker push $CI_REGISTRY_IMAGE:latest
+
 
 unit_test:
   stage: test
@@ -36,10 +49,7 @@ unit_test:
       - coverage
     expire_in: 1h
 
-quality:
-  stage: quality
-  only:
-    - master
-  image : gitlab.libriciel.fr:4567/docker/sonar-scanner:latest
-  script:
-    - /sonar-scanner -Dsonar.login=$SONAR_LOGIN -Dsonar.host.url=$SONAR_HOST_URL
+
+code_quality:
+  tags:
+    - cq-sans-dind

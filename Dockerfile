@@ -1,8 +1,5 @@
 FROM ubuntu:22.04
 
-ARG TIMEZONE=UTC
-RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime && echo $TIMEZONE > /etc/timezone
-
 RUN apt update -yqq \
     && apt dist-upgrade -yqq \
     && apt install \
