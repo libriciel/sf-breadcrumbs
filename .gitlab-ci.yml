@@ -1,3 +1,9 @@
+include:
+  - template: Code-Quality.gitlab-ci.yml
+  - template: Jobs/SAST.gitlab-ci.yml
+  - template: Jobs/Secret-Detection.gitlab-ci.yml
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+
 
 .composer:
   image: php:8.2-cli
@@ -13,18 +19,23 @@
 
 stages:
   - build
+  - code quality
+  - container scanning
   - test
-  - quality
-
 
 variables:
   CONTAINER_IMAGE: "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
+  REGISTRY_CONTAINER_PATH: /public/citoyens/idelibre
 
 build:
   stage: build
-  tags:
-    - citoyen-shell
+  script:
+    - echo "Building the application"
 
+
+code_quality:
+  tags:
+    - cq-sans-dind
 
 unit_test:
   stage: test
@@ -44,8 +55,3 @@ unit_test:
       - coverage
     expire_in: 1h
 
-
-code_quality:
-  stage: quality
-  tags:
-    - cq-sans-dind
