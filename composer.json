@@ -1,7 +1,7 @@
 {
     "name": "libriciel/ls-breadcrums",
     "description": "Un bundle \"Breadcrums\"",
-    "type": "library",
+    "type": "symfony-bundle",
     "version": "1.0.0",
     "require": {
         "php": ">=8.3",
@@ -15,8 +15,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Libriciel\\LsBreadcrums\\": "src/",
-            "Libriciel\\LsBreadcrums\\Tests\\": "tests/"
+            "Acme\\BlogBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Acme\\BlogBundle\\Tests\\": "tests/"
         }
     },
     "authors": [

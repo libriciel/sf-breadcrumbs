@@ -5,7 +5,8 @@ namespace Libriciel\LsBreadcrums;
 use Libriciel\LsBreadcrums\Entity\BreadcrumbElement;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
-class Breadcrumb extends AbstractBundle{
+class Breadcrumb extends AbstractBundle
+{
     /** @var array<BreadcrumbElement> */
     private array $breadcrumbElements = [];
 
