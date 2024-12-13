@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Breadcrumb;
+namespace Libriciel\LsBreadcrums\Listener;
 
+use Libriciel\LsBreadcrums\Entity\BreadcrumbElement;
+use Libriciel\LsBreadcrums\Breadcrumb;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
 

@@ -2,7 +2,7 @@
 
 namespace Libriciel\LsBreadcrums\Tests;
 
-use App\Breadcrumb\BreadcrumbTwig;
+use Libriciel\LsBreadcrums\BreadcrumbTwig;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use function PHPUnit\Framework\assertCount;
 

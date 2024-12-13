@@ -3,4 +3,4 @@ services:
     container_name: fpm-breadcrumbs
     build: .
     volumes:
-      - /app:/app
+      - ./:/app

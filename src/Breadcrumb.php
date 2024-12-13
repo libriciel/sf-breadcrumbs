@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Breadcrumb;
+namespace Libriciel\LsBreadcrums;
 
-class Breadcrumb
-{
+use Libriciel\LsBreadcrums\Entity\BreadcrumbElement;
+use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+
+class Breadcrumb extends AbstractBundle{
     /** @var array<BreadcrumbElement> */
     private array $breadcrumbElements = [];
 

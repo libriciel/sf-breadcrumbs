@@ -9,17 +9,15 @@
          processIsolation="false"
          convertDeprecationsToExceptions="false"
 >
-
+    <php>
+        <env name="KERNEL_CLASS" value="App\Kernel" />
+    </php>
 
     <testsuites>
         <testsuite name="Project Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
-
-    <php>
-        <env name="KERNEL_CLASS" value="App\Kernel" />
-    </php>
 
     <coverage processUncoveredFiles="true">
         <include>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Breadcrumb;
+namespace Libriciel\LsBreadcrums\Entity;
 
 #[\Attribute(\Attribute::IS_REPEATABLE | \Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
 class BreadcrumbElement
