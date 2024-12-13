@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Breadcrumb;
+namespace Libriciel\LsBreadcrums\Twig;
 
+use Libriciel\LsBreadcrums\Breadcrumb;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
