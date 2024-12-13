@@ -11,8 +11,7 @@ class BreadcrumbTwigTest extends KernelTestCase
     public function testGetFunctions(): void
     {
         self::bootKernel();
-        $container = self::$kernel->getContainer();
-//        $container = static::getContainer();
+        $container = static::getContainer();
         /** @var BreadcrumbTwig $menuTwig */
         $menuTwig = $container->get(BreadcrumbTwig::class);
         assertCount(1, $menuTwig->getFunctions());

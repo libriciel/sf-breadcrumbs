@@ -6,7 +6,7 @@ include:
 
 
 .composer:
-  image: php:8.2-cli
+  image: php:8.3-cli
   before_script:
     - apt-get update
     - apt-get install zip unzip git -yqq

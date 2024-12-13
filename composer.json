@@ -2,11 +2,14 @@
     "name": "libriciel/ls-breadcrums",
     "description": "Un bundle \"Breadcrums\"",
     "type": "library",
+    "version": "1.0.0",
     "require": {
+        "php": ">=8.3",
         "symfony/event-dispatcher": "^7.2",
         "symfony/http-kernel": "^7.2",
         "twig/twig": "^3.16",
-        "symfony/framework-bundle": "^7.2"
+        "symfony/framework-bundle": "^7.2",
+        "symfony/dotenv": "^7.2"
     },
     "license": "MIT",
     "autoload": {
@@ -27,8 +30,8 @@
     },
 
     "scripts": {
-        "test": "phpunit --configuration phpunit.xml phpunit --bootstrap vendor/autoload.php tests/",
-        "test-coverage": "phpunit --configuration phpunit.xml --coverage-text --coverage-clover coverage/coverage.xml --log-junit coverage/logfile.xml",
+        "test": "phpunit --configuration phpunit.xml.dist phpunit --bootstrap vendor/autoload.php tests/",
+        "test-coverage": "phpunit --configuration phpunit.xml.dist --coverage-text --coverage-clover coverage/coverage.xml --log-junit coverage/logfile.xml",
         "phpcs": "phpcs -ps --standard=PSR12 --ignore=vendor/ ./"
     }
 }
