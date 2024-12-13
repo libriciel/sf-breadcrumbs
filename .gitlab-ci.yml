@@ -17,12 +17,12 @@ include:
     - php composer.phar install
 
 
-
 stages:
   - build
   - code quality
   - container scanning
   - test
+  - deploy
 
 variables:
   CONTAINER_IMAGE: "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
@@ -37,6 +37,7 @@ build:
 code_quality:
   tags:
     - cq-sans-dind
+
 
 test:
   stage: test
