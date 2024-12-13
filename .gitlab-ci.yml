@@ -21,6 +21,7 @@ stages:
   - build
   - code quality
   - container scanning
+  - test
 
 variables:
   CONTAINER_IMAGE: "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
@@ -36,4 +37,20 @@ code_quality:
   tags:
     - cq-sans-dind
 
+test:
+  stage: test
+  extends:
+    - .composer
+  variables:
+    XDEBUG_MODE: coverage
+  script:
+    - php composer.phar test-coverage
+  artifacts:
+    paths:
+      - coverage
+    expire_in: 1h
 
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying the application"
