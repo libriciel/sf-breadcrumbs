@@ -1,8 +1,8 @@
 <?php
 
-namespace Libriciel\LsBreadcrums;
+namespace Libriciel\Breadcrumbs;
 
-use Libriciel\LsBreadcrums\Entity\BreadcrumbElement;
+use Libriciel\Breadcrumbs\Entity\BreadcrumbElement;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class BreadcrumElementEntityTest extends WebTestCase
