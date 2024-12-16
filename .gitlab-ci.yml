@@ -18,20 +18,9 @@ include:
 
 
 stages:
-  - build
   - code quality
   - container scanning
   - test
-  - deploy
-
-variables:
-  CONTAINER_IMAGE: "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
-  REGISTRY_CONTAINER_PATH: /public/citoyens/idelibre
-
-build:
-  stage: build
-  script:
-    - echo "Building the application"
 
 
 code_quality:
@@ -52,7 +41,3 @@ test:
       - coverage
     expire_in: 1h
 
-deploy:
-  stage: deploy
-  script:
-    - echo "Deploying the application"
