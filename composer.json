@@ -15,12 +15,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Acme\\BlogBundle\\": "src/"
+            "Libriciel\\LsBreadcrums\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Acme\\BlogBundle\\Tests\\": "tests/"
+            "Libriciel\\LsBreadcrums\\": "tests/"
         }
     },
     "authors": [

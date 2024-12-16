@@ -1,11 +1,9 @@
 <?php
 
-namespace Libriciel\LsBreadcrums\Tests;
+namespace Libriciel\LsBreadcrums;
 
 use Libriciel\LsBreadcrums\Entity\BreadcrumbElement;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class BreadcrumElementEntityTest extends WebTestCase
 {
