@@ -1,6 +1,6 @@
 {
-    "name": "libriciel/ls-breadcrums",
-    "description": "Un bundle \"Breadcrums\"",
+    "name": "libriciel/sf-breadcrumbs",
+    "description": "Un bundle de \"Breadcrumbs\" symfony fait par Libriciel",
     "type": "symfony-bundle",
     "version": "1.0.0",
     "require": {
@@ -15,12 +15,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Libriciel\\LsBreadcrums\\": "src/"
+            "Libriciel\\Breadcrumbs\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Libriciel\\LsBreadcrums\\": "tests/"
+            "Libriciel\\Breadcrumbs\\": "tests/"
         }
     },
     "authors": [
