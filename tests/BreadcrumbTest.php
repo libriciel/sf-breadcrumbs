@@ -20,7 +20,7 @@ class BreadcrumbTest extends TestCase
         $this->assertIsArray($breadcrumb->getBreadcumbElements());
     }
 
-    public function testReinit()
+    public function testRenit()
     {
         $breadcrumb = new Breadcrumb();
         $breadcrumb->addToBreadcrumbs(new BreadcrumbElement('test'), []);
