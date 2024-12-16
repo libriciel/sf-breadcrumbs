@@ -21,7 +21,7 @@ class BreadcrumbTwig extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('wa_breadcrumbs', [$this, 'getBreadcrumbs'], ['is_safe' => ['html']]),
+            new TwigFunction('idelibre_breadcrumbs', [$this, 'getBreadcrumbs'], ['is_safe' => ['html']]),
         ];
     }
 
