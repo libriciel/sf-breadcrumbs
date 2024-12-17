@@ -1,6 +1,7 @@
+name: sf-breadcrumbs
+
 services:
   app:
-    container_name: fpm-breadcrumbs
     build: .
     volumes:
       - ./:/app

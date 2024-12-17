@@ -7,11 +7,10 @@ RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime && echo $TIMEZONE > /et
 RUN <<EOF
     apk update && apk upgrade
     apk add wget sudo vim curl git locales
-    apk add php83-intl php83-mbstring php83-curl php83-sysvsem
+    apk add php83-intl php83-mbstring php83-curl php83-sysvsem php83-pecl-pcov
     apk add font-terminus font-inconsolata font-dejavu font-noto font-noto-cjk font-awesome font-noto-extra
     cp /usr/lib/php83/modules/* /usr/local/lib/php/extensions/no-debug-non-zts-20230831/
-
-    docker-php-ext-enable intl sysvsem
+    docker-php-ext-enable intl pcov sysvsem
 EOF
 
 COPY --from=hubdocker.libriciel.fr/composer:2.7.4 /usr/bin/composer /usr/bin/composer
