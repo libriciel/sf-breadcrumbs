@@ -2,7 +2,6 @@
 
 namespace Libriciel\Breadcrumbs;
 
-
 use Libriciel\Breadcrumbs\Entity\BreadcrumbElement;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
