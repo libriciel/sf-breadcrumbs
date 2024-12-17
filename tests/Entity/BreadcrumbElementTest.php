@@ -4,7 +4,7 @@ namespace Libriciel\Breadcrumbs\Entity;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class BreadcrumElementEntityTest extends WebTestCase
+class BreadcrumbElementTest extends WebTestCase
 {
     public function testValid()
     {

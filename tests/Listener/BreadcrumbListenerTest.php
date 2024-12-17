@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
 
-class BreadcrumListenerTest extends TestCase
+class BreadcrumbListenerTest extends TestCase
 {
     public function testBreadcrumbListener()
     {
