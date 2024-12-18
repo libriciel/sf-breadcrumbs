@@ -22,7 +22,7 @@ class Breadcrumb extends AbstractBundle
             $method = 'get'.($matches[2] ?? '');
             $callback = [$object, $method];
             if (is_callable($callback)) {
-                /** @var  array<float|int|string>|string $value */
+                /** @var array<float|int|string>|string $value */
                 $value = $callback();
                 $breadcrumbElement->setLibelle(
                     preg_replace('#\{([^.]+)\.([^}]+)?}#', $value, $breadcrumbElement->getLibelle()) ?? ''
