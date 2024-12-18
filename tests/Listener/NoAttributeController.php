@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class NoAttributeController extends AbstractController
 {
-    public function __invoke()
+    public function __invoke(): void
     {
     }
 }

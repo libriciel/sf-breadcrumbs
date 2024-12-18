@@ -26,13 +26,18 @@ code_quality:
 php-cs-fixer:
   stage: test
   image: "$CONTAINER_IMAGE"
-  variables:
-    NO_DATABASE: true
   script:
     - cd /app/
     - ./vendor/bin/php-cs-fixer fix --dry-run --diff
 
-test:
+phpstan:
+  stage: test
+  image: "$CONTAINER_IMAGE"
+  script:
+    - cd /app/
+    - ./vendor/bin/phpstan
+
+phpunit:
   stage: test
   image: "$CONTAINER_IMAGE"
   script:

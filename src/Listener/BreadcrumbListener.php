@@ -24,7 +24,9 @@ readonly class BreadcrumbListener
             return;
         }
         foreach ($breadcrumbElements as $breadcrumbElement) {
-            $this->breadcrumb->addToBreadcrumbs($breadcrumbElement, $event->getNamedArguments());
+            /** @var array<object> $namedArguments */
+            $namedArguments = $event->getNamedArguments();
+            $this->breadcrumb->addToBreadcrumbs($breadcrumbElement, $namedArguments);
         }
     }
 }

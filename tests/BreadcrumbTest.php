@@ -11,16 +11,16 @@ class BreadcrumbTest extends TestCase
     {
         $breadcrumb = new Breadcrumb();
         $breadcrumb->addToBreadcrumbs(new BreadcrumbElement('test', 'route'), []);
-        $this->assertCount(1, $breadcrumb->getBreadcumbElements());
-        $this->assertInstanceOf(BreadcrumbElement::class, $breadcrumb->getBreadcumbElements()[0]);
-        $this->assertEquals('test', $breadcrumb->getBreadcumbElements()[0]->getLibelle());
-        $this->assertEquals('route', $breadcrumb->getBreadcumbElements()[0]->getRoute());
+        self::assertCount(1, $breadcrumb->getBreadcumbElements());
+        self::assertInstanceOf(BreadcrumbElement::class, $breadcrumb->getBreadcumbElements()[0]);
+        self::assertEquals('test', $breadcrumb->getBreadcumbElements()[0]->getLibelle());
+        self::assertEquals('route', $breadcrumb->getBreadcumbElements()[0]->getRoute());
     }
 
     public function testGetBreadcrumbElements(): void
     {
         $breadcrumb = new Breadcrumb();
-        $this->assertIsArray($breadcrumb->getBreadcumbElements());
+        self::assertEmpty($breadcrumb->getBreadcumbElements());
     }
 
     public function testRenit(): void
@@ -28,8 +28,7 @@ class BreadcrumbTest extends TestCase
         $breadcrumb = new Breadcrumb();
         $breadcrumb->addToBreadcrumbs(new BreadcrumbElement('test', 'route'), []);
         $breadcrumb->renit();
-        $this->assertIsArray($breadcrumb->getBreadcumbElements());
-        $this->assertEmpty($breadcrumb->getBreadcumbElements());
+        self::assertEmpty($breadcrumb->getBreadcumbElements());
     }
 
     public function testWithArgumentReplacement(): void
