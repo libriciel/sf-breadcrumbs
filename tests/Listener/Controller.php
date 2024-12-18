@@ -11,6 +11,5 @@ class Controller extends AbstractController
     #[BreadcrumbElement('Acteurs', 'actor_index')]
     public function __invoke()
     {
-
     }
 }

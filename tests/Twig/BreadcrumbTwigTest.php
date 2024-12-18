@@ -43,5 +43,4 @@ class BreadcrumbTwigTest extends TestCase
 
         $this->assertSame('breadcrumb', $breadcrumbTwig->getBreadcrumbs());
     }
-
 }

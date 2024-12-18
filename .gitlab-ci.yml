@@ -5,37 +5,38 @@ include:
   - template: Security/Dependency-Scanning.gitlab-ci.yml
 
 
-.composer:
-  image: php:8.3-cli
-  before_script:
-    - apt-get update
-    - apt-get install zip unzip git -yqq
-    - pecl install xdebug && docker-php-ext-enable xdebug
-    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-    - php composer-setup.php
-    - php -r "unlink('composer-setup.php');"
-    - php composer.phar install
-
-
-stages:
-  - code quality
-  - container scanning
-  - test
-
+build:
+  stage: build
+  tags:
+    - docker-build
+  variables:
+    DOCKER_BUILDKIT: 1
+  script:
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - docker build --pull -t ${CONTAINER_IMAGE} .
+    - docker push ${CONTAINER_IMAGE}
 
 code_quality:
   tags:
     - cq-sans-dind
 
+php-cs-fixer:
+  stage: test
+  image: "$CONTAINER_IMAGE"
+  variables:
+    NO_DATABASE: true
+  script:
+    - cd /app/
+    - ./vendor/bin/php-cs-fixer fix --dry-run --diff
 
 test:
   stage: test
-  extends:
-    - .composer
-  variables:
-    XDEBUG_MODE: coverage
+  image: "$CONTAINER_IMAGE"
   script:
-    - php composer.phar test-coverage
+    - cd /app/
+    - php -dpcov.enabled=1 -dpcov.directory=. vendor/bin/phpunit --coverage-text --colors=never --coverage-clover coverage/coverage.xml --log-junit coverage/logfile.xml
+    - cp -rf coverage $CI_PROJECT_DIR
+  coverage: '/^\s*Lines:\s*\d+.\d+\%/'
   artifacts:
     paths:
       - coverage

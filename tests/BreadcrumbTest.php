@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class BreadcrumbTest extends TestCase
 {
-    public function testAddToBreadcrumbs()
+    public function testAddToBreadcrumbs(): void
     {
         $breadcrumb = new Breadcrumb();
         $breadcrumb->addToBreadcrumbs(new BreadcrumbElement('test', 'route'), []);
@@ -17,13 +17,13 @@ class BreadcrumbTest extends TestCase
         $this->assertEquals('route', $breadcrumb->getBreadcumbElements()[0]->getRoute());
     }
 
-    public function testGetBreadcumbElements()
+    public function testGetBreadcrumbElements(): void
     {
         $breadcrumb = new Breadcrumb();
         $this->assertIsArray($breadcrumb->getBreadcumbElements());
     }
 
-    public function testRenit()
+    public function testRenit(): void
     {
         $breadcrumb = new Breadcrumb();
         $breadcrumb->addToBreadcrumbs(new BreadcrumbElement('test', 'route'), []);
@@ -32,5 +32,14 @@ class BreadcrumbTest extends TestCase
         $this->assertEmpty($breadcrumb->getBreadcumbElements());
     }
 
-
+    public function testWithArgumentReplacement(): void
+    {
+        $breadcrumb = new Breadcrumb();
+        $testingObject = (new TestingOject())->setName('test');
+        $breadcrumb->addToBreadcrumbs(
+            new BreadcrumbElement('Modification de {testingObject.name}', 'route'),
+            ['testingObject' => $testingObject]
+        );
+        self::assertEquals('Modification de test', $breadcrumb->getBreadcumbElements()[0]->getLibelle());
+    }
 }
