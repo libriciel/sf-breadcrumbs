@@ -5,37 +5,46 @@ include:
   - template: Security/Dependency-Scanning.gitlab-ci.yml
 
 
-.composer:
-  image: php:8.3-cli
-  before_script:
-    - apt-get update
-    - apt-get install zip unzip git -yqq
-    - pecl install xdebug && docker-php-ext-enable xdebug
-    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-    - php composer-setup.php
-    - php -r "unlink('composer-setup.php');"
-    - php composer.phar install
+variables:
+  CONTAINER_IMAGE: "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
 
-
-stages:
-  - code quality
-  - container scanning
-  - test
-
+build:
+  stage: build
+  tags:
+    - docker-build
+  variables:
+    DOCKER_BUILDKIT: 1
+  script:
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - docker build --pull -t ${CONTAINER_IMAGE} .
+    - docker push ${CONTAINER_IMAGE}
 
 code_quality:
   tags:
     - cq-sans-dind
 
-
-test:
+php-cs-fixer:
   stage: test
-  extends:
-    - .composer
-  variables:
-    XDEBUG_MODE: coverage
+  image: "$CONTAINER_IMAGE"
   script:
-    - php composer.phar test-coverage
+    - cd /app/
+    - ./vendor/bin/php-cs-fixer fix --dry-run --diff
+
+phpstan:
+  stage: test
+  image: "$CONTAINER_IMAGE"
+  script:
+    - cd /app/
+    - ./vendor/bin/phpstan
+
+phpunit:
+  stage: test
+  image: "$CONTAINER_IMAGE"
+  script:
+    - cd /app/
+    - php -dpcov.enabled=1 -dpcov.directory=. vendor/bin/phpunit --coverage-text --colors=never --coverage-clover coverage/coverage.xml --log-junit coverage/logfile.xml
+    - cp -rf coverage $CI_PROJECT_DIR
+  coverage: '/^\s*Lines:\s*\d+.\d+\%/'
   artifacts:
     paths:
       - coverage

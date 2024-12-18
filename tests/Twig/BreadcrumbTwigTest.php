@@ -8,21 +8,21 @@ use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
+use Twig\TwigFunction;
 
 class BreadcrumbTwigTest extends TestCase
 {
-    public function testGetFunctions()
+    public function testGetFunctions(): void
     {
         $twig = $this->createMock(Environment::class);
         $breadcrumb = $this->createMock(Breadcrumb::class);
         $breadcrumbTwig = new BreadcrumbTwig($twig, $breadcrumb);
 
-        $breadcrumTwig = $breadcrumbTwig->getFunctions();
+        $breadcrumbTwigFunctions = $breadcrumbTwig->getFunctions();
 
-        $this->assertIsArray($breadcrumTwig);
-        $this->assertArrayHasKey(0, $breadcrumTwig);
-        $this->assertInstanceOf('Twig\TwigFunction', $breadcrumTwig[0]);
-        $this->assertSame('idelibre_breadcrumbs', $breadcrumTwig[0]->getName());
+        self::assertArrayHasKey(0, $breadcrumbTwigFunctions);
+        self::assertInstanceOf(TwigFunction::class, $breadcrumbTwigFunctions[0]);
+        self::assertSame('idelibre_breadcrumbs', $breadcrumbTwigFunctions[0]->getName());
     }
 
     /**
@@ -30,18 +30,17 @@ class BreadcrumbTwigTest extends TestCase
      * @throws SyntaxError
      * @throws LoaderError
      */
-    public function testGetBreadcrumbs()
+    public function testGetBreadcrumbs(): void
     {
         $twig = $this->createMock(Environment::class);
         $breadcrumb = $this->createMock(Breadcrumb::class);
         $breadcrumbTwig = new BreadcrumbTwig($twig, $breadcrumb);
 
-        $twig->expects($this->once())
+        $twig->expects(self::once())
             ->method('render')
             ->with('menu/breadcrumb.html.twig', ['breadcrumb' => $breadcrumb->getBreadcumbElements()])
             ->willReturn('breadcrumb');
 
-        $this->assertSame('breadcrumb', $breadcrumbTwig->getBreadcrumbs());
+        self::assertSame('breadcrumb', $breadcrumbTwig->getBreadcrumbs());
     }
-
 }

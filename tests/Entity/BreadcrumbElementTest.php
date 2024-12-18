@@ -6,13 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class BreadcrumbElementTest extends WebTestCase
 {
-    public function testValid()
+    public function testValid(): void
     {
         $breadcrumbElement = (new BreadcrumbElement())
-            ->setLibelle("name")
+            ->setLibelle('name')
             ->setRoute('path');
 
-        $this->assertSame("name", $breadcrumbElement->getLibelle());
-        $this->assertSame('path', $breadcrumbElement->getRoute());
+        self::assertSame('name', $breadcrumbElement->getLibelle());
+        self::assertSame('path', $breadcrumbElement->getRoute());
     }
 }

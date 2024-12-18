@@ -9,8 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class Controller extends AbstractController
 {
     #[BreadcrumbElement('Acteurs', 'actor_index')]
-    public function __invoke()
+    public function __invoke(): void
     {
-
     }
 }
