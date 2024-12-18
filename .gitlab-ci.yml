@@ -5,6 +5,9 @@ include:
   - template: Security/Dependency-Scanning.gitlab-ci.yml
 
 
+variables:
+  CONTAINER_IMAGE: "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
+
 build:
   stage: build
   tags:
