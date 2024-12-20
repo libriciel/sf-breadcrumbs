@@ -2,7 +2,6 @@
     "name": "libriciel/sf-breadcrumbs",
     "description": "Un bundle de \"Breadcrumbs\" symfony fait par Libriciel",
     "type": "symfony-bundle",
-    "version": "1.0.0",
     "require": {
         "php": ">=8.3",
         "symfony/event-dispatcher": "^7.2",
