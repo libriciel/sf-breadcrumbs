@@ -39,3 +39,5 @@ return [
     Libriciel\Breadcrumbs\Breadcrumbs::class => ['all' => true],
 ];
 ```
+
+
