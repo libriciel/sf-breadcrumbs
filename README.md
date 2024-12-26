@@ -36,7 +36,7 @@ in the `config/bundles.php` file of your project:
 
 return [
     // ...
-    Libriciel\Breadcrumbs\Breadcrumbs::class => ['all' => true],
+    Libriciel\BreadcrumbsBundle\BreadcrumbsBundle::class => ['all' => true],
 ];
 ```
 

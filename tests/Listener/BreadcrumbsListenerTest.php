@@ -2,7 +2,7 @@
 
 namespace Libriciel\Breadcrumbs\Listener;
 
-use Libriciel\Breadcrumbs\Breadcrumb;
+use Libriciel\Breadcrumbs\BreadcrumbsBundle;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +15,7 @@ class BreadcrumbsListenerTest extends KernelTestCase
     {
         $dispatcher = new EventDispatcher();
 
-        $breadcrumb = new Breadcrumb();
+        $breadcrumb = new BreadcrumbsBundle();
         $breadcrumbListener = new BreadcrumbListener($breadcrumb);
 
         $dispatcher->addListener('kernel.controller_arguments', $breadcrumbListener);
@@ -35,7 +35,7 @@ class BreadcrumbsListenerTest extends KernelTestCase
     {
         $dispatcher = new EventDispatcher();
 
-        $breadcrumb = new Breadcrumb();
+        $breadcrumb = new BreadcrumbsBundle();
         $breadcrumbListener = new BreadcrumbListener($breadcrumb);
 
         $dispatcher->addListener('kernel.controller_arguments', $breadcrumbListener);

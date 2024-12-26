@@ -9,7 +9,7 @@ class BreadcrumbTest extends TestCase
 {
     public function testAddToBreadcrumbs(): void
     {
-        $breadcrumb = new Breadcrumb();
+        $breadcrumb = new BreadcrumbsBundle();
         $breadcrumb->addToBreadcrumbs(new BreadcrumbElement('test', 'route'), []);
         self::assertCount(1, $breadcrumb->getBreadcumbElements());
         self::assertInstanceOf(BreadcrumbElement::class, $breadcrumb->getBreadcumbElements()[0]);
@@ -19,13 +19,13 @@ class BreadcrumbTest extends TestCase
 
     public function testGetBreadcrumbElements(): void
     {
-        $breadcrumb = new Breadcrumb();
+        $breadcrumb = new BreadcrumbsBundle();
         self::assertEmpty($breadcrumb->getBreadcumbElements());
     }
 
     public function testRenit(): void
     {
-        $breadcrumb = new Breadcrumb();
+        $breadcrumb = new BreadcrumbsBundle();
         $breadcrumb->addToBreadcrumbs(new BreadcrumbElement('test', 'route'), []);
         $breadcrumb->renit();
         self::assertEmpty($breadcrumb->getBreadcumbElements());
@@ -33,7 +33,7 @@ class BreadcrumbTest extends TestCase
 
     public function testWithArgumentReplacement(): void
     {
-        $breadcrumb = new Breadcrumb();
+        $breadcrumb = new BreadcrumbsBundle();
         $testingObject = (new TestingOject())->setName('test');
         $breadcrumb->addToBreadcrumbs(
             new BreadcrumbElement('Modification de {testingObject.name}', 'route'),
