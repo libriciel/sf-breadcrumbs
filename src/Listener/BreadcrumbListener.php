@@ -2,7 +2,7 @@
 
 namespace Libriciel\Breadcrumbs\Listener;
 
-use Libriciel\Breadcrumbs\Breadcrumb;
+use Libriciel\Breadcrumbs\BreadcrumbsBundle;
 use Libriciel\Breadcrumbs\Entity\BreadcrumbElement;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
 readonly class BreadcrumbListener
 {
     public function __construct(
-        private Breadcrumb $breadcrumb,
+        private BreadcrumbsBundle $breadcrumb,
     ) {
     }
 
@@ -20,7 +20,7 @@ readonly class BreadcrumbListener
         $this->breadcrumb->renit();
         /** @var array<BreadcrumbElement> $breadcrumbElements */
         $breadcrumbElements = $event->getAttributes(BreadcrumbElement::class);
-        if (1 >= count($breadcrumbElements)) {
+        if (0 >= count($breadcrumbElements)) {
             return;
         }
         foreach ($breadcrumbElements as $breadcrumbElement) {

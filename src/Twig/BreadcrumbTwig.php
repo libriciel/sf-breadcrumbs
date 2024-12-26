@@ -2,7 +2,7 @@
 
 namespace Libriciel\Breadcrumbs\Twig;
 
-use Libriciel\Breadcrumbs\Breadcrumb;
+use Libriciel\Breadcrumbs\BreadcrumbsBundle;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -14,14 +14,14 @@ class BreadcrumbTwig extends AbstractExtension
 {
     public function __construct(
         readonly private Environment $twig,
-        readonly private Breadcrumb $breadcrumb,
+        readonly private BreadcrumbsBundle $breadcrumb,
     ) {
     }
 
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('idelibre_breadcrumbs', [$this, 'getBreadcrumbs'], ['is_safe' => ['html']]),
+            new TwigFunction('breadcrumbs', [$this, 'getBreadcrumbs'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -32,7 +32,7 @@ class BreadcrumbTwig extends AbstractExtension
      */
     public function getBreadcrumbs(): string
     {
-        return $this->twig->render('menu/breadcrumb.html.twig', [
+        return $this->twig->render('breadcrumb.html.twig', [
             'breadcrumb' => $this->breadcrumb->getBreadcumbElements(),
         ]);
     }

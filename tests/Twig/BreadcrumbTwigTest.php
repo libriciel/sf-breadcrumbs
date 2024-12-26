@@ -2,7 +2,7 @@
 
 namespace Libriciel\Breadcrumbs\Twig;
 
-use Libriciel\Breadcrumbs\Breadcrumb;
+use Libriciel\Breadcrumbs\BreadcrumbsBundle;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -15,14 +15,14 @@ class BreadcrumbTwigTest extends TestCase
     public function testGetFunctions(): void
     {
         $twig = $this->createMock(Environment::class);
-        $breadcrumb = $this->createMock(Breadcrumb::class);
+        $breadcrumb = $this->createMock(BreadcrumbsBundle::class);
         $breadcrumbTwig = new BreadcrumbTwig($twig, $breadcrumb);
 
         $breadcrumbTwigFunctions = $breadcrumbTwig->getFunctions();
 
         self::assertArrayHasKey(0, $breadcrumbTwigFunctions);
         self::assertInstanceOf(TwigFunction::class, $breadcrumbTwigFunctions[0]);
-        self::assertSame('idelibre_breadcrumbs', $breadcrumbTwigFunctions[0]->getName());
+        self::assertSame('breadcrumbs', $breadcrumbTwigFunctions[0]->getName());
     }
 
     /**
@@ -33,12 +33,12 @@ class BreadcrumbTwigTest extends TestCase
     public function testGetBreadcrumbs(): void
     {
         $twig = $this->createMock(Environment::class);
-        $breadcrumb = $this->createMock(Breadcrumb::class);
+        $breadcrumb = $this->createMock(BreadcrumbsBundle::class);
         $breadcrumbTwig = new BreadcrumbTwig($twig, $breadcrumb);
 
         $twig->expects(self::once())
             ->method('render')
-            ->with('menu/breadcrumb.html.twig', ['breadcrumb' => $breadcrumb->getBreadcumbElements()])
+            ->with('breadcrumb.html.twig', ['breadcrumb' => $breadcrumb->getBreadcumbElements()])
             ->willReturn('breadcrumb');
 
         self::assertSame('breadcrumb', $breadcrumbTwig->getBreadcrumbs());
